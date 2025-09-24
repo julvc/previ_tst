@@ -51,8 +51,11 @@ public class PersonasController {
             Personas persona = personasService.guardar(entity);
             return ResponseEntity.ok(Map.of(MENSAJE_KEY, "Persona creada", "data", persona));
 
+        } catch (RuntimeException e) {
+            log.error("Error creando persona", e);
+            return ResponseEntity.badRequest().body(Map.of(MENSAJE_KEY, e.getMessage()));
         } catch (Exception e) {
-            log.error("Error creado persona", e);
+            log.error("Error creando persona", e);
             return ResponseEntity.status(500).body(Map.of(MENSAJE_KEY, "Error al crear la persona"));
         }
 

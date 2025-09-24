@@ -1,5 +1,7 @@
 package com.jvc.demoprevi.service;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Component;
 
 import com.jvc.demoprevi.domain.Comuna;
@@ -23,28 +25,96 @@ public class DataInitializer {
     @PostConstruct
     public void init() {
         if (regionRepository.count() == 0) {
-            Region region1 = new Region();
-            region1.setNombre("Región Metropolitana");
-            regionRepository.save(region1);
+            // Mapa de Regiones y sus Comunas
+            Map<String, String[]> regionesYComunas = Map.ofEntries(
+                    Map.entry("Región de Arica y Parinacota",
+                            new String[] { "Arica", "Camarones", "Putre", "General Lagos" }),
+                    Map.entry("Región de Tarapacá",
+                            new String[] { "Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara",
+                                    "Pica" }),
+                    Map.entry("Región de Antofagasta",
+                            new String[] { "Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe",
+                                    "San Pedro de Atacama", "Tocopilla", "María Elena" }),
+                    Map.entry("Región de Atacama",
+                            new String[] { "Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro",
+                                    "Vallenar", "Alto del Carmen", "Freirina", "Huasco" }),
+                    Map.entry("Región de Coquimbo",
+                            new String[] { "La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña",
+                                    "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá",
+                                    "Monte Patria", "Punitaqui", "Río Hurtado" }),
+                    Map.entry("Región de Valparaíso",
+                            new String[] { "Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví",
+                                    "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga",
+                                    "Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar",
+                                    "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo",
+                                    "Cartagena", "El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu",
+                                    "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué",
+                                    "Villa Alemana" }),
+                    Map.entry("Región Metropolitana", new String[] { "Cerrillos", "Cerro Navia", "Conchalí",
+                            "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida",
+                            "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo",
+                            "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia",
+                            "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "Santiago", "San Joaquín",
+                            "San Miguel", "San Ramón", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo",
+                            "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine",
+                            "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte",
+                            "Isla de Maipo", "Padre Hurtado", "Peñaflor" }),
+                    Map.entry("Región del Libertador General Bernardo O'Higgins",
+                            new String[] { "Rancagua", "Codegua", "Coinco", "Coltauco", "Doñihue", "Graneros",
+                                    "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua",
+                                    "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu", "La Estrella",
+                                    "Litueche", "Marchihue", "Navidad", "Paredones", "San Fernando", "Chépica",
+                                    "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque",
+                                    "Santa Cruz" }),
+                    Map.entry("Región del Maule",
+                            new String[] { "Talca", "Constitución", "Curepto", "Empedrado", "Maule", "Pelarco",
+                                    "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco",
+                                    "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco", "Romeral",
+                                    "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral",
+                                    "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas" }),
+                    Map.entry("Región de Ñuble",
+                            new String[] { "Cobquecura", "Coelemu", "Ninhue", "Portezuelo", "Quirihue", "Ránquil",
+                                    "Treguaco", "Bulnes", "Chillán Viejo", "Chillán", "El Carmen", "Pemuco", "Pinto",
+                                    "Quillón", "San Ignacio", "Yungay", "Coihueco", "Ñiquén", "San Carlos",
+                                    "San Fabián", "San Nicolás" }),
+                    Map.entry("Región del Biobío", new String[] { "Concepción", "Coronel", "Chiguayante", "Florida",
+                            "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé",
+                            "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa",
+                            "Los Ángeles", "Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco",
+                            "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío" }),
+                    Map.entry("Región de La Araucanía",
+                            new String[] { "Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea",
+                                    "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre las Casas",
+                                    "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén",
+                                    "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli", "Curacautín", "Ercilla",
+                                    "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria" }),
+                    Map.entry("Región de Los Ríos",
+                            new String[] { "Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco",
+                                    "Panguipulli", "La Unión", "Futrono", "Lago Ranco", "Río Bueno" }),
+                    Map.entry("Región de Los Lagos", new String[] { "Puerto Montt", "Calbuco", "Cochamó", "Fresia",
+                            "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud",
+                            "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón", "Queilén", "Quellón", "Quemchi",
+                            "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro",
+                            "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena" }),
+                    Map.entry("Región de Aysén del General Carlos Ibáñez del Campo",
+                            new String[] { "Coihaique", "Lago Verde", "Aysén", "Cisnes", "Guaitecas", "Cochrane",
+                                    "O'Higgins", "Tortel", "Chile Chico", "Río Ibáñez" }),
+                    Map.entry("Región de Magallanes y de la Antártica Chilena",
+                            new String[] { "Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio",
+                                    "Cabo de Hornos", "Antártica", "Porvenir", "Primavera", "Timaukel", "Natales",
+                                    "Torres del Paine" }));
+            for (Map.Entry<String, String[]> entry : regionesYComunas.entrySet()) {
+                Region region = new Region();
+                region.setNombre(entry.getKey());
+                regionRepository.save(region);
 
-            Region region2 = new Region();
-            region2.setNombre("Región de Valparaíso");
-            regionRepository.save(region2);
-
-            Comuna comuna1 = new Comuna();
-            comuna1.setNombre("Santiago");
-            comuna1.setRegion(region1);
-            comunaRepository.save(comuna1);
-
-            Comuna comuna2 = new Comuna();
-            comuna2.setNombre("Providencia");
-            comuna2.setRegion(region1);
-            comunaRepository.save(comuna2);
-
-            Comuna comuna3 = new Comuna();
-            comuna3.setNombre("Viña del Mar");
-            comuna3.setRegion(region2);
-            comunaRepository.save(comuna3);
+                for (String comunaNombre : entry.getValue()) {
+                    Comuna comuna = new Comuna();
+                    comuna.setNombre(comunaNombre);
+                    comuna.setRegion(region);
+                    comunaRepository.save(comuna);
+                }
+            }
         }
     }
 }
