@@ -1,5 +1,6 @@
 package com.jvc.demoprevi.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
@@ -21,7 +22,7 @@ public class Personas {
     private Long id;
     private String nombre;
     private String apellido;
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
     @OneToOne
     private Direccion direccion;
 }
