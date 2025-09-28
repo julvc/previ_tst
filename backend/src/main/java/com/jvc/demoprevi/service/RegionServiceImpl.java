@@ -3,14 +3,17 @@ package com.jvc.demoprevi.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.jvc.demoprevi.domain.Region;
 import com.jvc.demoprevi.repository.IRegionRepository;
 
-public class RegionServiceImpl implements IRegionService{
+@Service
+public class RegionServiceImpl implements IRegionService {
 
     private final IRegionRepository regionRepository;
 
-    public RegionServiceImpl(IRegionRepository regionRepository){
+    public RegionServiceImpl(IRegionRepository regionRepository) {
         this.regionRepository = regionRepository;
     }
 
