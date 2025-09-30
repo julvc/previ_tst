@@ -9,4 +9,5 @@ public interface IComunaService {
 
     List<Comuna> listar();
     Optional<Comuna> obtenerPorId(Long id);
+    List<Comuna> listarPorRegion(Long regionId);
 }

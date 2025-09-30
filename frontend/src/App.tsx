@@ -1,25 +1,23 @@
-import './App.css'
-import { Master } from './components/Layout/Master';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { RegionesPage } from './pages/RegionesPage';
+import { ComunasPage } from './pages/ComunasPage';
+import { HomePage } from './pages/HomePage';
+import { AcercaDePage } from './pages/AcercaDePage';
+import { PersonasPage } from './pages/PersonasPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 function App() {
   return (
-    <Master>
-      <div className='home'>
-        <h1>Gestión de Personas</h1>
-        <div className='cards'>
-          <div className='card'>
-            <h3> Listar Personas </h3>
-            <p>Visualiza todas las personas registradas en el sistema.</p>
-            <button className='btn-primary'>Ver Personas</button>
-        </div>
-          <div className='card'>
-            <h3> ➕ Crear Persona </h3>
-            <p>Permite crear una nueva persona en el sistema.</p>
-            <button className='btn-primary'>Crear Persona</button>
-          </div>
-        </div>
-      </div>
-    </Master>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/personas" element={<PersonasPage />} />
+        <Route path="/regiones" element={<RegionesPage />} />
+        <Route path="/comunas" element={<ComunasPage />} />
+        <Route path="/about" element={<AcercaDePage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

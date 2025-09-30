@@ -2,6 +2,7 @@ package com.jvc.demoprevi.domain;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -22,6 +23,6 @@ public class Personas {
     private String nombre;
     private String apellido;
     private LocalDate fechaNacimiento;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Direccion direccion;
 }

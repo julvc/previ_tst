@@ -57,4 +57,18 @@ public class ComunaController {
 
         return ResponseEntity.ok(Map.of(MENSAJE_KEY, "Comuna encontrada", "data", comuna.get()));
     }
+
+    @GetMapping("/region/{regionId}")
+    @Operation(summary = "Listar comunas por región", description = "Devuelve una lista de comunas pertenecientes a una región específica.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista obtenida exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Map.class))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
+    public ResponseEntity<Map<String, Object>> listarPorRegion(@PathVariable Long regionId) {
+        List<Comuna> comunas = comunaService.listarPorRegion(regionId);
+        if (comunas.isEmpty()) {
+            return ResponseEntity.ok(Map.of(MENSAJE_KEY, "No hay registros", "data", List.of()));
+        }
+        return ResponseEntity.ok(Map.of("data", comunas));
+    }
 }

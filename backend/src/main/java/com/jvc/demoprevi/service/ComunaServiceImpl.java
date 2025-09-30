@@ -26,4 +26,9 @@ public class ComunaServiceImpl implements IComunaService{
     public Optional<Comuna> obtenerPorId(Long id){
         return comunaRepository.findById(id);
     }
+
+    @Override
+    public List<Comuna> listarPorRegion(Long regionId) {
+        return comunaRepository.findByRegionId(regionId);
+    }
 }

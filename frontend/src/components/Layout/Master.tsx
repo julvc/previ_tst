@@ -1,30 +1,74 @@
-import type { ReactNode } from 'react';
-import './Master.css';
+import { Link, useLocation } from 'react-router-dom';
+import { BackButton } from '../UI/BackButton';
 
-interface MasterProps {
-    children: ReactNode;
-}
+export const Master = ({ children }: { children: React.ReactNode }) => {
+    const location = useLocation();
 
-export const Master = ({ children }: MasterProps) => {
+    const isActive = (path: string) => location.pathname === path;
+    const showBackButton = location.pathname !== '/';
     return (
         <div className="master-layout">
             <header className="master-header">
                 <nav className="master-nav">
-                    <div className='nav-brand'>
-                        <h2> Gestion de personas </h2>
+                    <div className="nav-brand">
+                        <h2>🏛️ Gestión de Personas</h2>
                     </div>
-                    <ul className='nav-links'>
-                        <li><a href="/">Inicio</a></li>
-                        <li><a href="/personas">Personas</a></li>
-                        <li><a href="/about">Acerca de</a></li>
+                    <ul className="nav-links">
+                        <li>
+                            <Link
+                                to="/"
+                                className={isActive('/') ? 'nav-link--active' : ''}
+                            >
+                                Inicio
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/personas"
+                                className={isActive('/personas') ? 'nav-link--active' : ''}
+                            >
+                                Personas
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/regiones"
+                                className={isActive('/regiones') ? 'nav-link--active' : ''}
+                            >
+                                Regiones
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/comunas"
+                                className={isActive('/comunas') ? 'nav-link--active' : ''}
+                            >
+                                Comunas
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/about"
+                                className={isActive('/about') ? 'nav-link--active' : ''}
+                            >
+                                Acerca de
+                            </Link>
+                        </li>
                     </ul>
                 </nav>
+                {showBackButton && (
+                    <div style={{ padding: '0 2rem 1rem' }}>
+                        <BackButton />
+                    </div>
+                )}
             </header>
+
             <main className="master-content">
                 {children}
             </main>
+
             <footer className="master-footer">
-                <p>&copy; 2025 CRUD con React + JAVA + SQLite. </p>
+                <p>© 2025 CRUD con React + JAVA + SQLite.</p>
             </footer>
         </div>
     );

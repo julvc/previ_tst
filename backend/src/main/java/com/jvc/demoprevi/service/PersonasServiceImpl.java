@@ -33,6 +33,7 @@ public class PersonasServiceImpl implements IPersonasService {
             if (comuna.getRegion() == null) {
                 throw new RuntimeException("Región no encontrada para la comuna");
             }
+            persona.getDireccion().setComuna(comuna);
         } else {
             throw new RuntimeException("Dirección o Comuna inválida");
         }
